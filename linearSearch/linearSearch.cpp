@@ -1,5 +1,5 @@
 #include <iostream>
-using std::cout, std::cin, std::endl;
+using namespace std;
 
 int linearSearch(int array[], int n, int v)
 {
@@ -33,6 +33,6 @@ int main()
 	}
 	else
 	{
-		cout << index << endl;
+		cout << "Element found at index : " << index << endl;
 	}
 }
