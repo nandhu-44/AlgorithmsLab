@@ -3,6 +3,7 @@
 using namespace std;
 
 int knapsack(int, int *, int *, int);
+void printItems(int **, int *, int *, int, int);
 
 int main()
 {
@@ -12,18 +13,19 @@ int main()
     cout << "Enter the capacity of the knapsack: ";
     cin >> W;
     cout << "Enter the weights of the items: ";
-    int *weights = new int [n];
+    int *weights = new int[n];
     for (int i = 0; i < n; i++)
     {
         cin >> weights[i];
     }
     cout << "Enter the profits of the items: ";
-    int *profits = new int [n];
+    int *profits = new int[n];
     for (int i = 0; i < n; i++)
     {
         cin >> profits[i];
     }
-    cout << "The maximum profit is: " << knapsack(W, weights, profits, n) << endl;
+    int maxProfit = knapsack(W, weights, profits, n);
+    cout << "The maximum profit is: " << maxProfit << endl;
     delete[] weights;
     delete[] profits;
     return 0;
@@ -63,6 +65,8 @@ int knapsack(int W, int *weights, int *profits, int n)
         }
     }
 
+    printItems(c, weights, profits, n, W);
+
     int result = c[n][W];
 
     for (int i = 0; i <= n; i++)
@@ -70,4 +74,24 @@ int knapsack(int W, int *weights, int *profits, int n)
         delete[] c[i];
     }
     return result;
+}
+
+void printItems(int **c, int *weights, int *profits, int n, int W)
+{
+    int i = n, j = W;
+    cout << "Items selected : [";
+    while (i > 0 && j > 0)
+    {
+        if (c[i][j] != c[i - 1][j])
+        {
+            cout << i;
+            j = j - weights[i - 1];
+            if (j > 0)
+            {
+                cout << ", ";
+            }
+        }
+        i--;
+    }
+    cout << "]" << endl;
 }
